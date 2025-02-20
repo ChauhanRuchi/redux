@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import { increment, decrement } from "../redux/counterSlice";
 import { addUser, deleteUser, updateUser } from "../redux/userSlice";
-import { addPost, fetchPosts } from "@/redux/postsSlice";
+import { fetchPosts } from "@/redux/postsSlice";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -29,7 +29,7 @@ export default function Home() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(addUser({ username, id: Math.random() }));
+    dispatch(addUser(2));
     setUsername("");
   };
 
@@ -50,6 +50,7 @@ export default function Home() {
   useEffect(()=>{
     dispatch(fetchPosts())
   },[])
+
 
   return (
     <>

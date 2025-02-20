@@ -2,9 +2,10 @@ import Head from "next/head";
 import { Geist, Geist_Mono } from "next/font/google";
 import styles from "@/styles/Home.module.css";
 import { useDispatch, useSelector } from "react-redux";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { increment, decrement } from "../redux/counterSlice";
-import { addUser, deleteUser, updateUser } from "../redux/userCrudSlice";
+import { addUser, deleteUser, updateUser } from "../redux/userSlice";
+import { addPost, fetchPosts } from "@/redux/postsSlice";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -20,6 +21,7 @@ export default function Home() {
   const dispatch = useDispatch();
   const value = useSelector((state) => state.counter);
   const users = useSelector((state) => state.users);
+  const state = useSelector((state) => state);
 
   const [username, setUsername] = useState("");
   const [editId, setEditId] = useState(null);
@@ -45,7 +47,10 @@ export default function Home() {
     setEditId(null);
     setEditName("");
   };
-  console.log("userr", users)
+  useEffect(()=>{
+    dispatch(fetchPosts())
+  },[])
+
   return (
     <>
       <button onClick={() => dispatch(increment())}>Increment</button>
